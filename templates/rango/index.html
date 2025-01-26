@@ -11,6 +11,7 @@
         <h1>Rango says...</h1>
         <div>
             ...hey there partner! <br />
+            <p>Rango says hey there partner!</p>
             <strong>{{ boldmessage }}</strong><br />
         </div>
 
@@ -37,7 +38,7 @@
             <ul>
                 {% for page in pages %}
                     <li>
-                        <p>{{ page.title }}</p>
+                        <a href="{{ page.url }}">{{ page.title }}</a>
                     </li>
                 {% endfor %}
             </ul>
@@ -47,7 +48,7 @@
         </div>
 
         <div>
-            <a href = '/rango/about'>About</a><br />
+            <a href="/rango/about/">About</a><br />
             <img src = "{% static 'images/rango.jpg' %}" alt = "Picture of rango" /> 
         </div>
     </body>

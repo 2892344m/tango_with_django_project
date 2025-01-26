@@ -10,8 +10,8 @@ def index(request):
     context_dict['boldmessage'] = "Crunchy, creamy, cookie, candy, cupcake!"
     context_dict['categories'] = category_list
     context_dict['pages'] = page_list
-    context_dict['most_liked_cat'] = category_list[0]
-    context_dict['most_viewed_page'] = page_list[0]
+    if len(category_list) >= 1: context_dict['most_liked_cat'] = category_list[0]
+    if len(page_list) >= 1: context_dict['most_viewed_page'] = page_list[0]
 
     return render(request, 'rango/index.html', context=context_dict)
 
