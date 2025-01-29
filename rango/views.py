@@ -22,14 +22,18 @@ def index(request):
     if len(page_list) >= 1: context_dict['most_viewed_page'] = page_list[0]
 
     response = render(request, 'rango/index.html', context = context_dict)
-    visitor_cookie_handler(request, response)
+    visitor_cookie_handler(request)
 
     return response
 
 def about(request):
-    context_dict = {'boldmessage': 'This tutorial has been put together by James Morrison.'}
+    context_dict = {'boldmessage': 'This tutorial has been put together by James Morrison.',}
+    visitor_cookie_handler(request)
+    context_dict['visits'] = request.session['visits']
 
-    return render(request, 'rango/about.html', context=context_dict)
+    response = render(request, 'rango/about.html', context=context_dict)
+
+    return response
 
 def show_category(request, category_name_slug):
     context_dict = {}
@@ -159,14 +163,16 @@ def user_logout(request):
 #Helper functions
 
 def visitor_cookie_handler(request):
-    visits = int(request.COOKIES.get('visits', 1))
+    visits = int(get_server_side_cookie(request, 'visits', 1))
 
-    last_visit_cookie = request.COOKIES.get('last_visit', str(datetime.now()))
+    last_visit_cookie = get_server_side_cookie(request,
+                                               'last_visit',
+                                               str(datetime.now()))
     last_visit_time = datetime.strptime(last_visit_cookie[:-7],
                                          '%Y-%m-%d %H:%M:%S')
     
     if (datetime.now() - last_visit_time).days > 0:
-        visits += 1
+        visits = visits + 1
         request.session['last_visit'] = str(datetime.now())
     else:
         request.session['last_visit'] = last_visit_cookie
