@@ -29,17 +29,17 @@
                 <div class="card-body">
                 <h2>Most Liked Categories</h2>
                 <p class="card-text">
-                {% if categories %}
-                    <ul>
-                        {% for category in categories %}
-                            <li>
-                                <a href="{% url 'rango:show_category' category.slug %}">{{ category.name }}</a>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                {% else %}
-                    <strong>There are no categories present.</strong>
-                {% endif %}
+                    {% if categories %}
+                        <ul>
+                            {% for category in categories %}
+                                <li>
+                                    <a href="{% url 'rango:show_category' category.slug %}">{{ category.name }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <strong>There are no categories present.</strong>
+                    {% endif %}
                 </p>
                 </div>
             </div>
@@ -48,19 +48,20 @@
         <div class="col-md-6">
             <div class="card mb-6">
                 <div class="card-body">
-                    {% if pages %}
-                        <h2>Most Viewed Pages</h2>
-                        <h2>Most Viewed Page: {{ most_viewed_page }}</h2>
-                        <ul>
+                    <h2>Most Viewed Pages</h2>
+                    <p class="card-text">
+                        {% if pages %}
+                            <ul>
                             {% for page in pages %}
                                 <li>
                                     <a href="{{ page.url }}">{{ page.title }}</a>
                                 </li>
                             {% endfor %}
-                        </ul>
-                    {% else %}
-                        <strong>There are no pages present.</strong>
-                    {% endif %}
+                            </ul>
+                        {% else %}
+                            <strong>There are no pages present.</strong>
+                        {% endif %}
+                    </p>
                 </div>
             </div>
         </div>
